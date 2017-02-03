@@ -2,9 +2,6 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles import finders
 
-
-# Thanks to Enzo Roiz https://github.com/enzoroiz who made these tests during an internship with us
-
 class GeneralTests(TestCase):
     def test_serving_static_files(self):
         # If using static media properly result is not NONE once it finds rango.jpg
@@ -13,6 +10,7 @@ class GeneralTests(TestCase):
 
 
 class IndexPageTests(TestCase):
+
     def test_index_contains_hello_message(self):
         # Check if there is the message 'Rango Says'
         # Chapter 4
@@ -40,11 +38,13 @@ class IndexPageTests(TestCase):
 
 
 class AboutPageTests(TestCase):
+
     def test_about_contains_create_message(self):
         # Check if in the about page is there - and contains the specified message
         # Exercise from Chapter 4
         response = self.client.get(reverse('about'))
         self.assertIn(b'This tutorial has been put together by', response.content)
+
 
     def test_about_contain_image(self):
         # Check if is there an image on the about page
@@ -60,7 +60,9 @@ class AboutPageTests(TestCase):
         self.assertTemplateUsed(response, 'rango/about.html')
 
 
+
 class ModelTests(TestCase):
+
     def setUp(self):
         try:
             from populate_rango import populate
@@ -71,6 +73,7 @@ class ModelTests(TestCase):
             print('The function populate() does not exist or is not correct')
         except:
             print('Something went wrong in the populate() function :-(')
+
 
     def get_category(self, name):
 
@@ -124,6 +127,7 @@ class Chapter4ViewTests(TestCase):
 
 
 class Chapter5ViewTests(TestCase):
+
     def setUp(self):
         try:
             from populate_rango import populate
@@ -134,6 +138,7 @@ class Chapter5ViewTests(TestCase):
             print('The function populate() does not exist or is not correct')
         except:
             print('Something went wrong in the populate() function :-(')
+
 
     def get_category(self, name):
 
@@ -160,7 +165,7 @@ class Chapter5ViewTests(TestCase):
     def test_view_has_title(self):
         response = self.client.get(reverse('index'))
 
-        # Check title used correctly
+        #Check title used correctly
         self.assertIn('<title>', response.content)
         self.assertIn('</title>', response.content)
 
@@ -174,6 +179,7 @@ class Chapter5ViewTests(TestCase):
 
 
 class Chapter6ViewTests(TestCase):
+
     def setUp(self):
         try:
             from populate_rango import populate
@@ -185,6 +191,7 @@ class Chapter6ViewTests(TestCase):
         except:
             print('Something went wrong in the populate() function :-(')
 
+
     # are categories displayed on index page?
 
     # does the category model have a slug field?
@@ -195,22 +202,23 @@ class Chapter6ViewTests(TestCase):
         from rango.models import Category
         cat = Category(name='how do i create a slug in django')
         cat.save()
-        self.assertEqual(cat.slug, 'how-do-i-create-a-slug-in-django')
+        self.assertEqual(cat.slug,'how-do-i-create-a-slug-in-django')
 
-        # test category view does the page exist?
-
-
-        # test whether you can navigate from index to a category page
+    # test category view does the page exist?
 
 
-        # test does index page contain top five pages?
+    # test whether you can navigate from index to a category page
 
-        # test does index page contain the words "most liked" and "most viewed"
 
-        # test does category page contain a link back to index page?
+    # test does index page contain top five pages?
+
+    # test does index page contain the words "most liked" and "most viewed"
+
+    # test does category page contain a link back to index page?
 
 
 class Chapter7ViewTests(TestCase):
+
     def setUp(self):
         try:
             from forms import PageForm
@@ -234,7 +242,7 @@ class Chapter7ViewTests(TestCase):
 
 
     # test if index contains link to add category page
-    # <a href="/rango/add_category/">Add a New Category</a><br />
+    #<a href="/rango/add_category/">Add a New Category</a><br />
 
 
     # test if the add_page.html template exists.
